@@ -18,42 +18,42 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import py.edu.ucom.taller.models.entities.Jugador;
+import py.edu.ucom.taller.models.entities.Arbitro;
 import py.edu.ucom.taller.models.results.Pagina;
-import py.edu.ucom.taller.repository.JugadoresRepository;
+import py.edu.ucom.taller.repository.ArbitrosRepository;
 
-@Path("api/v1/jugadores")
+@Path("api/v1/arbitros")
 @Produces(MediaType.APPLICATION_JSON)
-public class JugadoresResource {
+public class ArbitrosResource {
 
     @Inject
-    JugadoresRepository repository;
+    ArbitrosRepository repository;
 
     @GET
-    public List<Jugador> listarTodos() {
+    public List<Arbitro> listarTodos() {
         return repository.listarTodos();
     }
 
     @GET
     @Path("/{id}")
     public Response obtenerPorId(@PathParam("id") Integer id) {
-        Jugador jugador = repository.obtenerPorId(id);
-        if (jugador == null) {
+        Arbitro Arbitro = repository.obtenerPorId(id);
+        if (Arbitro == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(jugador).build();
+        return Response.ok(Arbitro).build();
     }
 
     @POST
-    public Response crear(Jugador jugador) {
-        repository.crear(jugador);
-        return Response.status(Response.Status.CREATED).entity(jugador).build();
+    public Response crear(Arbitro Arbitro) {
+        repository.crear(Arbitro);
+        return Response.status(Response.Status.CREATED).entity(Arbitro).build();
     }
 
     @PUT
-    public Response actualizar(Jugador jugador) {
-        repository.actualizar(jugador);
-        return Response.ok(jugador).build();
+    public Response actualizar(Arbitro Arbitro) {
+        repository.actualizar(Arbitro);
+        return Response.ok(Arbitro).build();
     }
 
     @DELETE
@@ -68,7 +68,7 @@ public class JugadoresResource {
 
     @GET
     @Path("/paginate")
-    public Pagina<Jugador> paginado(
+    public Pagina<Arbitro> paginado(
             @QueryParam("page") @DefaultValue("0") int page,
             @QueryParam("size") @DefaultValue("10") int size,
             @QueryParam("sortBy") String sortBy,
@@ -89,7 +89,7 @@ public class JugadoresResource {
 
     @GET
     @Path("/filter")
-    public List<Jugador> listarConFiltros(@Context UriInfo uriInfo) {
+    public List<Arbitro> listarConFiltros(@Context UriInfo uriInfo) {
         Map<String, Object> filtros = new HashMap<>();
         uriInfo.getQueryParameters().forEach((key, values) -> {
             if (values != null && !values.isEmpty()) {

@@ -17,6 +17,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -41,7 +42,7 @@ public class Arbitro implements Serializable {
     @Column(name = "id_arbitro", nullable = false)
     private Integer idArbitro;
     @Basic(optional = false)
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 200)
     private String nombre;
     @Basic(optional = false)
     @Column(name = "apellido", nullable = false, length = 100)
@@ -52,6 +53,7 @@ public class Arbitro implements Serializable {
     private String correo;
     @Column(name = "telefono", length = 50)
     private String telefono;
+    @JsonIgnore
     @OneToMany(mappedBy = "idArbitro", fetch = FetchType.LAZY)
     private List<Torneo> torneoList;
 
